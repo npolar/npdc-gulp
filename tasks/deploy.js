@@ -18,7 +18,7 @@ var task = function(gulp) {
     scp.send({
       file: config.dist.root+'/*',
       host: 'apptest.data.npolar.no',
-      path: '/srv/npdc'
+      path: '/srv/data.npolar.no'
     }, scpCallback);
   });
 
@@ -26,7 +26,7 @@ var task = function(gulp) {
     scp.send({
       file: config.dist.root+'/*',
       host: 'api.data.npolar.no',
-      path: '/srv/npdc'
+      path: '/srv/data.npolar.no'
     }, scpCallback);
   });
 };
