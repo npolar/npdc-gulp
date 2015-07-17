@@ -8,7 +8,7 @@
   },
   "author": "npolar",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "browser-sync": "^2.7.13",
     "browserify": "^10.2.6",
     "browserify-ngannotate": "^1.0.1",
