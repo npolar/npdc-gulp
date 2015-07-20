@@ -1,2 +1,18 @@
 # npdc-gulp
-Gulp tasks for npdc apps
+Exposes tasks for apps and support modules.
+
+##Usage
+Add this repo as a devDependency in package.json and install.
+For apps use this gruntfile:
+
+    var gulp = require('gulp');
+    var npdcGulp = require('npdc-gulp');
+    npdcGulp.loadAppTasks(gulp);
+
+For support modules use this gruntfile:
+
+    var gulp = require('gulp');
+    var npdcGulp = require('npdc-gulp');
+    npdcGulp.loadModuleTasks(gulp);
+
+List tasks with ```gulp --tasks```
