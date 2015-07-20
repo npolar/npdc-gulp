@@ -2,7 +2,7 @@
 Exposes tasks for apps and support modules.
 
 ##Usage
-Add this repo as a devDependency in package.json and install.
+Add this repo as a devDependency in package.json and install.  
 For apps use this gruntfile:
 
     var gulp = require('gulp');
