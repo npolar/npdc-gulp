@@ -1,4 +1,4 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
   var runSequence = require('run-sequence').use(gulp);

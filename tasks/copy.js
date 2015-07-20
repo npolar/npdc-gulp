@@ -1,12 +1,10 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
-  var config = require('../config');
   var gulpif = require('gulp-if');
   var cachebust = require('gulp-cache-bust');
   var changed = require('gulp-changed');
   var minifyCss = require('gulp-minify-css');
-  var debug = require('gulp-debug');
 
   gulp.task('copy-html', function () {
     return gulp.src(config.src.html)

@@ -1,8 +1,7 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
   var addsrc = require('gulp-add-src');
-  var config = require('../config');
   var templateCache = require('gulp-angular-templatecache');
   var cache  = require('gulp-memory-cache');
   var path = require('path');

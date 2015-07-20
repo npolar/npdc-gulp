@@ -1,9 +1,8 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
   var scp = require('scp');
   var gutil = require('gulp-util');
-  var config = require('../config');
 
   var scpCallback = function (err) {
     if (err) {

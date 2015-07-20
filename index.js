@@ -3,28 +3,34 @@
 var fs = require('fs');
 var onlyScripts = require('./util/scriptFilter');
 var path = require('path');
+var _ = require('lodash');
+var deepExtend = require('underscore-deep-extend');
 var tasks = fs.readdirSync(path.resolve(__dirname, './tasks/')).filter(onlyScripts);
-var config = require('./config');
+var baseConfig = require('./config');
 
-var loadTasks = function(gulpInstance) {
+_.mixin({deepExtend: deepExtend(_)});
+
+var loadTasks = function(gulpInstance, options) {
+  var config = _.deepExtend(baseConfig, options);
   tasks.forEach(function(task) {
-    require('./tasks/' + task)(gulpInstance);
+    require('./tasks/' + task)(gulpInstance, config);
   });
 };
 
-var loadAppTasks = function(gulpInstance) {
-  loadTasks(gulpInstance);
+var loadAppTasks = function(gulpInstance, options) {
+  loadTasks(gulpInstance, options);
   gulpInstance.task('default', ['dev']);
 };
 
-var loadModuleTasks = function(gulpInstance) {
-  loadTasks(gulpInstance);
+var loadModuleTasks = function(gulpInstance, options) {
+  loadTasks(gulpInstance, options);
   gulpInstance.task('default', ['lint', 'test']);
-  gulpInstance.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
+  gulpInstance.watch([].concat(baseConfig.src.js, baseConfig.tests), ['lint', 'test']);
 };
 
 module.exports = {
   loadTasks: loadAppTasks, // @deprecated
   loadAppTasks: loadAppTasks,
-  loadModuleTasks: loadModuleTasks
+  loadModuleTasks: loadModuleTasks,
+  baseConfig: baseConfig
 };

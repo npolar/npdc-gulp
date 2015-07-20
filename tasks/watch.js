@@ -1,7 +1,6 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
-  var config = require('../config');
   var gutil = require('gulp-util');
   var fs = require('fs');
   var path = require('path');

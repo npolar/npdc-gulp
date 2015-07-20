@@ -1,7 +1,6 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
-  var config = require('../config');
   var jshint = require('gulp-jshint');
   var fs = require('fs');
   var path = require('path');

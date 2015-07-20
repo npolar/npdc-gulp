@@ -16,3 +16,14 @@ For support modules use this gulpfile:
     npdcGulp.loadModuleTasks(gulp);
 
 List tasks with ```gulp --tasks```
+
+### Custom config
+You can extend the default gulp configuration by passing you own config object which will be merged with the defaults. E.g.
+
+    npdcGulp.loadAppTasks(gulp, {
+      'deps': {
+        'css': ['node_modules/rome/dist/rome.min.css']
+      }
+    });
+
+The default config is available at ```npdcGulp.baseConfig```.

@@ -1,7 +1,6 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
-  var config      = require('../config');
   var browserSync = require('browser-sync').create();
   var html5Regex = new RegExp('\/'+config.name+'\/([^\.]+)$');
 

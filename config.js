@@ -3,18 +3,18 @@ var path = require('path');
 var pkg = require(path.join(process.cwd(), 'package.json'));
 
 // Expecting names to by "npdc-appname"
-var name = pkg.name.split('-')[1],
+var appName = pkg.name.split('npdc-')[1],
   src = 'src',
   deps = 'node_modules',
   dist = 'dist';
 
 var config = {
-  'name': name,
+  'name': appName,
 
   'dist': {
     'root': dist,
-    'approot': dist+'/'+name,
-    'assets': dist+'/'+name+'/assets'
+    'approot': dist+'/'+appName,
+    'assets': dist+'/'+appName+'/assets'
   },
 
   'src': {

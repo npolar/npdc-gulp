@@ -1,7 +1,6 @@
-var task = function(gulp) {
+var task = function(gulp, config) {
   'use strict';
 
-  var config = require('../config');
   var del    = require('del');
 
   gulp.task('clean', function(cb) {
