@@ -19,7 +19,7 @@ var config = {
 
   'src': {
     'root': src,
-    'app': [src+'/*app.js'],
+    'app': src+'/*app.js',
     'html': [src+'/index.html'],
     'views': [src+'/*/**/*.html'],
     'js': [src+'/**/*.js'],

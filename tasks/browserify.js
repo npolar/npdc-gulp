@@ -13,11 +13,12 @@ var task = function(gulp) {
   var cache  = require('gulp-memory-cache');
   var partialify = require('partialify');
   var ngannotate = require('browserify-ngannotate');
-  var debug = require('gulp-debug');
+  var glob = require('glob');
+
   var bundle;
   var bundler = browserify({
     // Our app main
-    entries: [config.src.app],
+    entries: [glob.sync('./'+config.src.app)],
     // Enable source maps
     debug: true
   }, watchify.args);
