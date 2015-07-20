@@ -29,7 +29,6 @@ var loadModuleTasks = function(gulpInstance, options) {
 };
 
 module.exports = {
-  loadTasks: loadAppTasks, // @deprecated
   loadAppTasks: loadAppTasks,
   loadModuleTasks: loadModuleTasks,
   baseConfig: baseConfig
