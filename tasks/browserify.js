@@ -13,11 +13,13 @@ var task = function(gulp, config) {
   var partialify = require('partialify');
   var ngannotate = require('browserify-ngannotate');
   var glob = require('glob');
+  var _ = require('lodash');
 
+  var app = glob.sync('./'+config.src.app);
   var bundle;
   var bundler = browserify({
     // Our app main
-    entries: [glob.sync('./'+config.src.app)],
+    entries: app,
     // Enable source maps
     debug: true
   }, watchify.args);
@@ -41,7 +43,7 @@ var task = function(gulp, config) {
     return bundler.bundle()
       // log errors if they happen
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('app.js'))
+      .pipe(source(_.last(app[0].split('/'))))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(gulpif(global.isProd, uglify({ compress: { drop_console: true } })))
