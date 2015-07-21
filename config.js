@@ -10,7 +10,8 @@ var appName = pkg.name.split('npdc-')[1],
 
 var config = {
   'name': appName,
-
+  'VERSION': pkg.version,
+  
   'dist': {
     'root': dist,
     'approot': dist+'/'+appName,
