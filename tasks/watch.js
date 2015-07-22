@@ -4,6 +4,7 @@ var task = function(gulp, config) {
   var gutil = require('gulp-util');
   var fs = require('fs');
   var path = require('path');
+  var cache  = require('gulp-memory-cache');
 
   gulp.task('watch', ['browserSync'], function() {
 
@@ -11,7 +12,7 @@ var task = function(gulp, config) {
     gulp.watch(config.src.html, ['copy-html']);
     gulp.watch(config.src.css, ['copy-css']);
     gulp.watch([].concat(config.src.config, config.src.img), ['copy-static']);
-    gulp.watch(config.src.views, ['browserify']);
+    gulp.watch(config.src.views, ['views']);
     gulp.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
 
     // Watch assets if 'npm link'ed

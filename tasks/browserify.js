@@ -9,14 +9,15 @@ var task = function(gulp, config) {
   var watchify = require('watchify');
   var browserify = require('browserify');
   var uglify = require('gulp-uglify');
-  var cache  = require('gulp-memory-cache');
   var partialify = require('partialify');
   var ngannotate = require('browserify-ngannotate');
   var glob = require('glob');
   var _ = require('lodash');
 
   var app = glob.sync('./'+config.src.app);
+  var bundleName = _.last(app[0].split('/'));
   var bundle;
+  
   var bundler = browserify({
     // Our app main
     entries: app,
@@ -30,20 +31,15 @@ var task = function(gulp, config) {
   bundler.transform(ngannotate);
   bundler.on('log', gutil.log);
 
+  bundler.add('/tmp/templates.js');
   bundle = function () {
-    var views = cache.get('views').cache;
     gutil.log('Bundling...');
-
-    // Add views from cache
-    for (var view in views) {
-      bundler.add(views[view]);
-    }
 
     // Browseriy
     return bundler.bundle()
       // log errors if they happen
       .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source(_.last(app[0].split('/'))))
+      .pipe(source(bundleName))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(gulpif(global.isProd, uglify({ compress: { drop_console: true } })))

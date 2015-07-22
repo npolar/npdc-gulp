@@ -3,7 +3,6 @@ var task = function(gulp, config) {
 
   var addsrc = require('gulp-add-src');
   var templateCache = require('gulp-angular-templatecache');
-  var cache  = require('gulp-memory-cache');
   var path = require('path');
 
   gulp.task('views', function () {
@@ -12,7 +11,7 @@ var task = function(gulp, config) {
     return gulp.src(config.deps.views, { base: path.join(process.cwd(), config.deps.root, '/') })
       .pipe(addsrc(config.src.views))
       .pipe(templateCache({ moduleSystem: 'Browserify', standalone: true}))
-      .pipe(cache('views'));
+      .pipe(gulp.dest('/tmp'));
   });
 };
 
