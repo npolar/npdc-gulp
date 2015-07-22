@@ -5,21 +5,19 @@ var task = function(gulp, config) {
   var gutil = require('gulp-util');
   var inquirer = require('inquirer');
 
-  var scpCallback = function (err) {
-    if (err) {
-      gutil.log(err);
-    }
-    else {
-      gutil.log('Deploy successfull.');
-    }
-  };
-
-  gulp.task('deploy-test', ['prod'], function() {
+  gulp.task('deploy-test', ['prod'], function(cb) {
     scp.send({
       file: config.dist.root+'/*',
       host: 'apptest.data.npolar.no',
       path: '/srv/data.npolar.no'
-    }, scpCallback);
+    }, function (err) {
+      if (err) {
+        gutil.log(err);
+        cb(err);
+      } else {
+        gutil.log('Deploy successfull.');
+        cb();
+      }});
   });
 
   gulp.task('deploy-prod', function(cb) {
@@ -32,7 +30,14 @@ var task = function(gulp, config) {
             file: config.dist.root+'/*',
             host: 'app2.data.npolar.no',
             path: '/srv/data.npolar.no'
-          }, scpCallback);
+          }, function (err) {
+            if (err) {
+              gutil.log(err);
+              cb(err);
+            } else {
+              gutil.log('Deploy successfull.');
+              cb();
+            }});
         } else {
           cb();
         }
