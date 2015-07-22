@@ -26,6 +26,7 @@ You can extend the default gulp configuration by passing you own config object w
       }
     });
 
+For details on config merging see: https://github.com/kurtmilam/underscoreDeepExtend
 The default config is available at ```npdcGulp.baseConfig```.
 
 ## Tasks
