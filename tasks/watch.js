@@ -4,7 +4,6 @@ var task = function(gulp, config) {
   var gutil = require('gulp-util');
   var fs = require('fs');
   var path = require('path');
-  var cache  = require('gulp-memory-cache');
 
   gulp.task('watch', ['browserSync'], function() {
 
