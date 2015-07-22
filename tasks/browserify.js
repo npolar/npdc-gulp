@@ -17,7 +17,7 @@ var task = function(gulp, config) {
   var app = glob.sync('./'+config.src.app);
   var bundleName = _.last(app[0].split('/'));
   var bundle;
-  
+
   var bundler = browserify({
     // Our app main
     entries: app,
@@ -32,8 +32,12 @@ var task = function(gulp, config) {
   bundler.on('log', gutil.log);
 
   bundler.add('/tmp/templates.js');
-  bundle = function () {
-    gutil.log('Bundling...');
+  bundle = function (ids) {
+    if (ids instanceof Array) {
+      gutil.log('Bundling', ids);
+    } else {
+      gutil.log('Bundling app');
+    }
 
     // Browseriy
     return bundler.bundle()
@@ -50,7 +54,13 @@ var task = function(gulp, config) {
   // Watch for changes and rebuild
   if ( !global.isProd ) {
     bundler = watchify(bundler);
-    bundler.on('update', bundle);
+    bundler.on('update', function (ids) {
+      // Ignore package.json updates
+      if (ids.length === 1 && /package\.json$/.test(ids[0])) {
+        return;
+      }
+      return bundle(ids);
+    });
   }
 
   // Registers gulp task
