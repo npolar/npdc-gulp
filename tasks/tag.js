@@ -16,7 +16,7 @@ var task = function(gulp, config) {
     });
   };
 
-  var readPackageJson = function (pkg) {
+  var readPackageJson = function () {
     //We parse the json file instead of using require because require caches multiple calls.
     return JSON.parse(fs.readFileSync('./package.json'), 'utf8');
   };
