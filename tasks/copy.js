@@ -6,11 +6,11 @@ var task = function(gulp, config) {
   var changed = require('gulp-changed');
   var minifyCss = require('gulp-minify-css');
   var preprocess = require('gulp-preprocess');
-  
+
   gulp.task('copy-html', function () {
     return gulp.src(config.src.html)
       .pipe(changed(config.dist.approot))
-      .pipe(preprocess({context: { VERSION: config.VERSION }}))
+      .pipe(preprocess({context: { VERSION: config.version() }}))
       .pipe(gulpif(global.isProd, cachebust()))
       .pipe(gulp.dest(config.dist.approot));
   });

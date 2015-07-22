@@ -1,5 +1,4 @@
 'use strict';
-var path = require('path');
 var fs = require('fs');
 
 var readPackageJson = function () {
@@ -14,7 +13,7 @@ var appName = readPackageJson().name.split('npdc-')[1],
 
 var config = {
   'name': appName,
-  'VERSION': readPackageJson().version,
+  version: function () {return readPackageJson().version;},
 
   'dist': {
     'root': dist,
