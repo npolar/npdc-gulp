@@ -13,6 +13,7 @@ var task = function(gulp, config) {
   var ngannotate = require('browserify-ngannotate');
   var glob = require('glob');
   var _ = require('lodash');
+  var resolutions = require('browserify-resolutions');
 
   var app = glob.sync('./'+config.src.app);
   var bundleName = _.last(app[0].split('/'));
@@ -24,6 +25,9 @@ var task = function(gulp, config) {
     // Enable source maps
     debug: true
   }, watchify.args);
+
+  // Extra deduping: https://www.npmjs.com/package/browserify-resolutions
+  bundler.plugin(resolutions, ['angular']);
 
   // Enable require on non js files
   bundler.transform(partialify);
