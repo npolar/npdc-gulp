@@ -14,6 +14,7 @@ var task = function(gulp, config) {
   var glob = require('glob');
   var _ = require('lodash');
   var resolutions = require('browserify-resolutions');
+  var babelify = require('babelify');
 
   var app = glob.sync('./'+config.src.app);
   var bundleName = _.last(app[0].split('/'));
@@ -29,10 +30,13 @@ var task = function(gulp, config) {
   // Extra deduping: https://www.npmjs.com/package/browserify-resolutions
   bundler.plugin(resolutions, ['angular']);
 
+  // Transpile ES2015
+  bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
   // Enable require on non js files
   bundler.transform(partialify);
   // Expand angular DI to enable minififaction
   bundler.transform(ngannotate);
+
   bundler.on('log', gutil.log);
 
   bundler.add('/tmp/templates.js');
@@ -46,7 +50,10 @@ var task = function(gulp, config) {
     // Browseriy
     return bundler.bundle()
       // log errors if they happen
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .on('error', function (err) {
+        gutil.log(gutil.colors.red('Browserify error'), err.message);
+        this.emit('end');
+      })
       .pipe(source(bundleName))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))

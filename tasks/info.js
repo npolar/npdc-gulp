@@ -10,7 +10,7 @@ var task = function(gulp, config) {
     fs.readdirSync(config.deps.root).forEach(function (file) {
       var stats = fs.lstatSync(path.join(config.deps.root, file));
       if (stats.isSymbolicLink()) {
-        gutil.log('[INFO] Using symlinked version of ' + file);
+        gutil.log(gutil.colors.yellow('Using symlinked version of ' + file));
       }
     });
     cb();
