@@ -31,7 +31,7 @@ var task = function(gulp, config) {
   bundler.plugin(resolutions, ['angular']);
 
   // Transpile ES2015
-  bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
+  //bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
   // Enable require on non js files
   bundler.transform(partialify);
   // Expand angular DI to enable minififaction
