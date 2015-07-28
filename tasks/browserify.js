@@ -22,7 +22,7 @@ var task = function(gulp, config) {
 
   var bundler = browserify({
     // Our app main
-    entries: app,
+    entries: [require.resolve('babelify/polyfill'), app],
     // Enable source maps
     debug: true
   }, watchify.args);
@@ -31,7 +31,7 @@ var task = function(gulp, config) {
   bundler.plugin(resolutions, ['angular']);
 
   // Transpile ES2015
-  //bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
+  bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
   // Enable require on non js files
   bundler.transform(partialify);
   // Expand angular DI to enable minififaction
