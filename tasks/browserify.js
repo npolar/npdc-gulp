@@ -15,6 +15,7 @@ var task = function(gulp, config) {
   var _ = require('lodash');
   var resolutions = require('browserify-resolutions');
   var babelify = require('babelify');
+  var notify = require('gulp-notify');
 
   var app = glob.sync('./'+config.src.app);
   var bundleName = _.last(app[0].split('/'));
@@ -50,10 +51,7 @@ var task = function(gulp, config) {
     // Browseriy
     return bundler.bundle()
       // log errors if they happen
-      .on('error', function (err) {
-        gutil.log(gutil.colors.red('Browserify error'), err.message);
-        this.emit('end');
-      })
+      .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp browserify'}))
       .pipe(source(bundleName))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
