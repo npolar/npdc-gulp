@@ -1,7 +1,7 @@
 # npdc-gulp
 Exposes tasks for apps and support modules.
 
-##Usage
+## Usage
 Add this repo as a devDependency in package.json and install.  
 For apps use this gulpfile:
 
@@ -26,4 +26,20 @@ You can extend the default gulp configuration by passing you own config object w
       }
     });
 
+For details on config merging see: https://github.com/kurtmilam/underscoreDeepExtend
 The default config is available at ```npdcGulp.baseConfig```.
+
+## Tasks
+Daily development is done on the default task, so just run ```gulp```!
+
+## deploy-test
+Deploys current dist folder to test.
+
+## tag
+git tags current version.
+
+## bump
+Bumps module version.
+
+## release
+build -> bump -> tag -> deploy to production

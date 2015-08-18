@@ -9,39 +9,50 @@ var task = function(gulp, config) {
   var watchify = require('watchify');
   var browserify = require('browserify');
   var uglify = require('gulp-uglify');
-  var cache  = require('gulp-memory-cache');
   var partialify = require('partialify');
   var ngannotate = require('browserify-ngannotate');
   var glob = require('glob');
+  var _ = require('lodash');
+  var resolutions = require('browserify-resolutions');
+  var babelify = require('babelify');
+  var notify = require('gulp-notify');
 
+  var app = glob.sync('./'+config.src.app);
+  var bundleName = _.last(app[0].split('/'));
   var bundle;
+
   var bundler = browserify({
     // Our app main
-    entries: [glob.sync('./'+config.src.app)],
+    entries: [require.resolve('babelify/polyfill'), app],
     // Enable source maps
     debug: true
   }, watchify.args);
 
+  // Extra deduping: https://www.npmjs.com/package/browserify-resolutions
+  bundler.plugin(resolutions, ['angular']);
+
+  // Transpile ES2015
+  bundler.transform(babelify.configure({ignore: [/^\/tmp/] }));
   // Enable require on non js files
   bundler.transform(partialify);
   // Expand angular DI to enable minififaction
   bundler.transform(ngannotate);
+
   bundler.on('log', gutil.log);
 
-  bundle = function () {
-    var views = cache.get('views').cache;
-    gutil.log('Bundling...');
-
-    // Add views from cache
-    for (var view in views) {
-      bundler.add(views[view]);
+  bundler.add('/tmp/templates.js');
+  bundle = function (ids) {
+    if (ids instanceof Array) {
+      gutil.log('Bundling', ids);
+    } else {
+      gutil.log('Bundling app');
     }
 
     // Browseriy
     return bundler.bundle()
       // log errors if they happen
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-      .pipe(source('app.js'))
+      .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp browserify'}))
+      .pipe(source(bundleName))
       .pipe(buffer())
       .pipe(sourcemaps.init({loadMaps: true}))
       .pipe(gulpif(global.isProd, uglify({ compress: { drop_console: true } })))
@@ -52,7 +63,13 @@ var task = function(gulp, config) {
   // Watch for changes and rebuild
   if ( !global.isProd ) {
     bundler = watchify(bundler);
-    bundler.on('update', bundle);
+    bundler.on('update', function (ids) {
+      // Ignore package.json updates
+      if (ids.length === 1 && /package\.json$/.test(ids[0])) {
+        return;
+      }
+      return bundle(ids);
+    });
   }
 
   // Registers gulp task

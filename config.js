@@ -1,15 +1,19 @@
 'use strict';
-var path = require('path');
-var pkg = require(path.join(process.cwd(), 'package.json'));
+var fs = require('fs');
+
+var readPackageJson = function () {
+  return JSON.parse(fs.readFileSync('./package.json'), 'utf8');
+};
 
 // Expecting names to by "npdc-appname"
-var appName = pkg.name.split('npdc-')[1],
+var appName = readPackageJson().name.split('npdc-')[1],
   src = 'src',
   deps = 'node_modules',
   dist = 'dist';
 
 var config = {
   'name': appName,
+  version: function () {return readPackageJson().version;},
 
   'dist': {
     'root': dist,
@@ -30,7 +34,7 @@ var config = {
 
   'deps': {
     'root': deps,
-    'css': [deps+'/purecss/build/pure.css', deps+'/bootstrap/dist/css/bootstrap.min.css', deps+'/formula/dist/formula.min.css'],
+    'css': [deps+'/purecss/build/pure-min.css', deps+'/bootstrap/dist/css/bootstrap.min.css', deps+'/formula/dist/formula.min.css'],
     'views': [deps+'/angular-npolar/ui/**/*.html', deps+'/npdc-common/ui/**/*.html']
   },
 

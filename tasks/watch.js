@@ -11,7 +11,7 @@ var task = function(gulp, config) {
     gulp.watch(config.src.html, ['copy-html']);
     gulp.watch(config.src.css, ['copy-css']);
     gulp.watch([].concat(config.src.config, config.src.img), ['copy-static']);
-    gulp.watch(config.src.views, ['browserify']);
+    gulp.watch(config.src.views, ['views']);
     gulp.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
 
     // Watch assets if 'npm link'ed
