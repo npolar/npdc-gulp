@@ -9,12 +9,8 @@ var task = function(gulp, config) {
   var watchify = require('watchify');
   var browserify = require('browserify');
   var uglify = require('gulp-uglify');
-  var partialify = require('partialify');
-  var ngannotate = require('browserify-ngannotate');
   var glob = require('glob');
   var _ = require('lodash');
-  var resolutions = require('browserify-resolutions');
-  var babelify = require('babelify');
   var notify = require('gulp-notify');
 
   var app = glob.sync('./'+config.src.app);
@@ -25,26 +21,15 @@ var task = function(gulp, config) {
     // Our app main
     entries: [require.resolve('babelify/polyfill'), app],
     // Enable source maps
-    //debug: true
+    debug: true
   }, watchify.args);
-
-  // Extra deduping: https://www.npmjs.com/package/browserify-resolutions
-  bundler.plugin(resolutions, ['angular']);
-
-  // Transpile ES2015
-  bundler.transform(babelify.configure({ignore: [/^\/tmp/]}));//, /angular(-material|-animate|-aria)?\.js/] }));
-  // Enable require on non js files
-  bundler.transform(partialify);
-  // Expand angular DI to enable minififaction
-  bundler.transform(ngannotate);
 
   bundler.on('log', gutil.log);
 
-  
   var templateCache = '/tmp/npdc-gulp/'+ config.name +'/templates.js';
   gutil.log("templateCache", templateCache);
   bundler.add(templateCache);
-  
+
   bundle = function (ids) {
     if (ids instanceof Array) {
       gutil.log('Bundling', ids);
@@ -57,10 +42,10 @@ var task = function(gulp, config) {
       // log errors if they happen
       .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp browserify'}))
       .pipe(source(bundleName))
-      // .pipe(buffer())
-      // .pipe(sourcemaps.init({loadMaps: true}))
-      // .pipe(gulpif(global.isProd, uglify({ compress: { drop_console: true } })))
-      // .pipe(sourcemaps.write('./'))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({loadMaps: true}))
+      .pipe(gulpif(global.isProd, uglify({ compress: { drop_console: true } })))
+      .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(config.dist.approot));
   };
 
