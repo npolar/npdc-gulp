@@ -40,7 +40,11 @@ var task = function(gulp, config) {
 
   bundler.on('log', gutil.log);
 
-  bundler.add('/tmp/templates.js');
+  
+  var templateCache = '/tmp/npdc-gulp/'+ config.name +'/templates.js';
+  gutil.log("templateCache", templateCache);
+  bundler.add(templateCache);
+  
   bundle = function (ids) {
     if (ids instanceof Array) {
       gutil.log('Bundling', ids);

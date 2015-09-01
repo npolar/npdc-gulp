@@ -6,7 +6,7 @@ var readPackageJson = function () {
 };
 
 // Expecting names to by "npdc-appname"
-var appName = readPackageJson().name.split('npdc-')[1],
+var appName = readPackageJson().name.split('npdc-')[1] || "",
   src = 'src',
   deps = 'node_modules',
   dist = 'dist';

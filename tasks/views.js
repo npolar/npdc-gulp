@@ -11,7 +11,7 @@ var task = function(gulp, config) {
     return gulp.src(config.deps.views, { base: path.join(process.cwd(), config.deps.root, '/') })
       .pipe(addsrc(config.src.views))
       .pipe(templateCache({ moduleSystem: 'Browserify', standalone: true}))
-      .pipe(gulp.dest('/tmp'));
+      .pipe(gulp.dest('/tmp/npdc-gulp/'+config.name));
   });
 };
 
