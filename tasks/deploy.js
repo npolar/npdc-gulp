@@ -21,6 +21,13 @@ var task = function(gulp, config) {
   });
 
   gulp.task('deploy-prod', function(cb) {
+    // Work around for hanging process. All tasks finish but gulp don't.
+    gulp.on('stop', function() {
+      process.nextTick(function() {
+        process.exit(0);
+      });
+    });
+
     inquirer.prompt([{
       type: 'confirm', name: 'ok',
       message: 'Are you sure you want to deploy to production?',
