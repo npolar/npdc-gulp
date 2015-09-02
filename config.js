@@ -34,7 +34,8 @@ var config = {
 
   'deps': {
     'root': deps,
-    'css': [deps+'/purecss/build/pure-min.css', deps+'/bootstrap/dist/css/bootstrap.min.css', deps+'/formula/dist/formula.min.css'],
+    'css': [deps+'/purecss/build/pure-min.css', deps+'/bootstrap/dist/css/bootstrap.min.css',
+            deps+'/formula/dist/*.css', deps+'/npdc-material/dist/*.css'],
     'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/ui/**/*.html']
   },
 

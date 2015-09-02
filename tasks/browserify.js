@@ -14,7 +14,6 @@ var task = function(gulp, config) {
   var notify = require('gulp-notify');
 
   var app = glob.sync('./'+config.src.app);
-  var bundleName = _.last(app[0].split('/'));
   var bundle;
 
   var bundler = browserify({
@@ -31,11 +30,8 @@ var task = function(gulp, config) {
   bundler.add(templateCache);
 
   bundle = function (ids) {
-    if (ids instanceof Array) {
-      gutil.log('Bundling', ids);
-    } else {
-      gutil.log('Bundling app');
-    }
+    var bundleName = _.last(app[0].split('/'));
+    gutil.log('Bundling', ids instanceof Array ? ids : '');
 
     // Browseriy
     return bundler.bundle()
