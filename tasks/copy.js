@@ -6,6 +6,7 @@ var task = function(gulp, config) {
   var changed = require('gulp-changed');
   var minifyCss = require('gulp-minify-css');
   var preprocess = require('gulp-preprocess');
+  var concat = require('gulp-concat');
 
   gulp.task('copy-html', function () {
     return gulp.src(config.src.html)
@@ -16,7 +17,8 @@ var task = function(gulp, config) {
   });
 
   gulp.task('copy-css', function () {
-    return gulp.src(config.src.css)
+    return gulp.src([].concat(config.deps.css, config.src.css))
+      .pipe(concat(config.pkgname + '-' + config.version() + '.css'))
       .pipe(changed(config.dist.approot))
       .pipe(gulpif(global.isProd, minifyCss()))
       .pipe(gulp.dest(config.dist.approot));
@@ -28,14 +30,7 @@ var task = function(gulp, config) {
       .pipe(gulp.dest(config.dist.approot));
   });
 
-  gulp.task('copy-deps-css', function () {
-    return gulp.src(config.deps.css, { base: config.deps.root })
-      .pipe(changed(config.dist.assets))
-      .pipe(gulpif(global.isProd, minifyCss()))
-      .pipe(gulp.dest(config.dist.assets));
-  });
-
-  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static', 'copy-deps-css']);
+  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static']);
 };
 
 module.exports = task;

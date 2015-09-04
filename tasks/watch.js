@@ -5,26 +5,37 @@ var task = function(gulp, config) {
   var fs = require('fs');
   var path = require('path');
 
-  gulp.task('watch', ['browserSync'], function() {
+  gulp.task('watch-html', function() {
+    return gulp.watch(config.src.html, ['copy-html']);
+  });
 
-    // Scripts are automatically watched and rebundled by Watchify inside Browserify task
-    gulp.watch(config.src.html, ['copy-html']);
-    gulp.watch(config.src.css, ['copy-css']);
-    gulp.watch([].concat(config.src.config, config.src.img), ['copy-static']);
-    gulp.watch(config.src.views, ['views']);
-    gulp.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
+  gulp.task('watch-css', function() {
+    return gulp.watch([].concat(config.src.css), ['copy-css']);
+  });
 
-    // Watch assets if 'npm link'ed
-    fs.readdirSync(config.deps.root).forEach(function (file) {
+  gulp.task('watch-static', function() {
+    return gulp.watch([].concat(config.src.config, config.src.img), ['copy-static']);
+  });
+
+  gulp.task('watch-views', function() {
+    return gulp.watch(config.src.views, ['views']);
+  });
+
+  gulp.task('watch-test', function() {
+    return gulp.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
+  });
+
+  gulp.task('watch-deps', function(cb) {
+    fs.readdirSync(config.deps.root).forEach(function(file) {
       var stats = fs.lstatSync(path.join(config.deps.root, file));
       if (stats.isSymbolicLink()) {
-        config.deps.css.forEach(function (glob) {
+        config.deps.css.forEach(function(glob) {
           if (glob.indexOf(file) > -1) {
-            gulp.watch(glob, ['copy-deps-css']);
+            gulp.watch(glob, ['copy-css']);
             gutil.log('Watching npm linked asset ' + file + ' for css changes');
           }
         });
-        config.deps.views.forEach(function (glob) {
+        config.deps.views.forEach(function(glob) {
           if (glob.indexOf(file) > -1) {
             gulp.watch(glob, ['views']);
             gutil.log('Watching npm linked asset ' + file + ' for template changes');
@@ -32,7 +43,10 @@ var task = function(gulp, config) {
         });
       }
     });
+    cb();
   });
+
+  gulp.task('watch-all', ['watch-html', 'watch-css', 'watch-static', 'watch-views', 'watch-test', 'watch-deps']);
 };
 
 module.exports = task;

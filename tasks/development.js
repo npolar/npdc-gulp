@@ -5,7 +5,7 @@ var task = function(gulp, config) {
 
   gulp.task('dev', function(cb) {
     global.isProd = false;
-    runSequence(['clean', 'info'], 'lint', 'test', ['browserify', 'copy-all'], 'watch', cb);
+    runSequence(['clean', 'info'], 'lint', 'test', ['browserify', 'copy-all'], 'browserSync', 'watch-all', cb);
   });
 };
 

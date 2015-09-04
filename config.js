@@ -5,13 +5,14 @@ var readPackageJson = function () {
   return JSON.parse(fs.readFileSync('./package.json'), 'utf8');
 };
 
-// Expecting names to by "npdc-appname"
+// Expecting names to be "npdc-appname"
 var appName = readPackageJson().name.split('npdc-')[1] || "",
   src = 'src',
   deps = 'node_modules',
   dist = 'dist';
 
 var config = {
+  'pkgname': readPackageJson().name,
   'name': appName,
   version: function () {return readPackageJson().version;},
 
