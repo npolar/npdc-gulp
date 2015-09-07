@@ -20,8 +20,9 @@ var task = function(gulp, config) {
             path = '/'+config.name+'/#!'+matches[1];
             res.writeHead(302, {'Location': path});
             res.end();
+          } else {
+            next();
           }
-          next();
         }
       },
       // Watch for updates in dist
