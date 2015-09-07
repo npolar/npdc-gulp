@@ -5,7 +5,7 @@ var task = function(gulp, config) {
   var gutil = require('gulp-util');
   var inquirer = require('inquirer');
 
-  gulp.task('deploy-test', ['prod'], function(cb) {
+  gulp.task('deploy-test', function(cb) {
     scp.send({
       file: config.dist.root+'/*',
       host: 'apptest.data.npolar.no',

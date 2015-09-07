@@ -7,30 +7,50 @@ var task = function(gulp, config) {
   var minifyCss = require('gulp-minify-css');
   var preprocess = require('gulp-preprocess');
   var concat = require('gulp-concat');
+  var git = require('gulp-git');
+  var rename = require('gulp-rename');
 
-  gulp.task('copy-html', function () {
+  gulp.task('copy-html', function() {
     return gulp.src(config.src.html)
       .pipe(changed(config.dist.approot))
-      .pipe(preprocess({context: { VERSION: config.version() }}))
+      .pipe(preprocess({
+        context: {
+          VERSION: config.version()
+        }
+      }))
       .pipe(gulpif(global.isProd, cachebust()))
       .pipe(gulp.dest(config.dist.approot));
   });
 
-  gulp.task('copy-css', function () {
-    return gulp.src([].concat(config.deps.css, config.src.css))
-      .pipe(concat(config.pkgname + '-' + config.version() + '.css'))
-      .pipe(changed(config.dist.approot))
-      .pipe(gulpif(global.isProd, minifyCss()))
-      .pipe(gulp.dest(config.dist.approot));
+  gulp.task('copy-css', function(cb) {
+    git.revParse({
+      args: '--abbrev-ref HEAD'
+    }, function(err, ref) {
+      gulp.src([].concat(config.deps.css, config.src.css))
+        .pipe(concat(config.pkgname + '-' + config.version() + '.css'))
+        .pipe(changed(config.dist.approot))
+        .pipe(gulpif(global.isProd, minifyCss()))
+        .pipe(gulp.dest(config.dist.approot))
+        .pipe(rename(config.pkgname + '-' + ref + '-latest.css'))
+        .pipe(gulp.dest(config.dist.approot));
+        cb();
+    });
+
   });
 
-  gulp.task('copy-static', function () {
+  gulp.task('copy-static', function() {
     return gulp.src([].concat(config.src.config, config.src.img))
       .pipe(changed(config.dist.approot))
       .pipe(gulp.dest(config.dist.approot));
   });
 
-  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static']);
+  gulp.task('copy-deps-assets', function() {
+    return gulp.src(config.deps.assets)
+      .pipe(changed(config.dist.assets))
+      .pipe(gulp.dest(config.dist.assets));
+  });
+
+  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static', 'copy-deps-assets']);
 };
 
 module.exports = task;

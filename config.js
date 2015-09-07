@@ -19,7 +19,7 @@ var config = {
   'dist': {
     'root': dist,
     'approot': dist+'/'+appName,
-    'assets': dist+'/'+appName+'/assets'
+    'assets': dist+'/assets'
   },
 
   'src': {
@@ -35,9 +35,9 @@ var config = {
 
   'deps': {
     'root': deps,
-    'css': [deps+'/purecss/build/pure-min.css', deps+'/bootstrap/dist/css/bootstrap.min.css',
-            deps+'/formula/dist/*.css', deps+'/npdc-material/dist/*.css'],
-    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/ui/**/*.html']
+    'css': [],
+    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/ui/**/*.html'],
+    'assets': [deps+'/npdc-common/dist/assets/**/*']
   },
 
   'tests': ['src/**/*Spec.js']
