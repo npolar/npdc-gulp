@@ -24,7 +24,7 @@ var task = function(gulp, config) {
 
   gulp.task('copy-css', function(cb) {
     git.revParse({
-      args: '--abbrev-ref HEAD'
+      args: '--abbrev-ref HEAD', quiet: true
     }, function(err, ref) {
       gulp.src([].concat(config.deps.css, config.src.css))
         .pipe(concat(config.pkgname + '-' + config.version() + '.css'))
