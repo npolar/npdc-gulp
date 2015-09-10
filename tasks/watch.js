@@ -31,7 +31,7 @@ var task = function(gulp, config) {
       if (stats.isSymbolicLink()) {
         config.deps.css.forEach(function(glob) {
           if (glob.indexOf(file) > -1) {
-            gulp.watch(glob, ['copy-css']);
+            gulp.watch(glob, ['copy-css', 'copy-deps-assets']);
             gutil.log('Watching npm linked asset ' + file + ' for css changes');
           }
         });

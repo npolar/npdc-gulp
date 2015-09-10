@@ -26,7 +26,7 @@ var task = function(gulp, config) {
         }
       },
       // Watch for updates in dist
-      files: [config.dist.approot+'/**/*'],
+      files: [config.dist.root+'/**/*'],
       // Disable input mirroring between connected browsers
       ghostMode: false,
       open: false
