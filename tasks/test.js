@@ -10,7 +10,10 @@ var task = function(gulp, config) {
       .pipe(mocha({
         reporter: 'dot'
         }))
-      .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp mocha'}));
+      .on('error', function (error) {
+        notify({message: '<%= error.message %>', title: 'Gulp mocha'});
+        this.emit('end');
+      });
   });
 };
 
