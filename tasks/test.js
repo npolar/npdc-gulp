@@ -24,11 +24,11 @@ var task = function(gulp, config) {
       .pipe(istanbul.writeReports({
         reporters: ['text-summary', 'lcov']
       }))
-      .on('error', function(error) {
+      .on('error', function (error) {
         notify({
           message: '<%= error.message %>',
           title: 'Gulp mocha'
-        });
+        }).write(error);
         this.emit('end');
       });
   });
