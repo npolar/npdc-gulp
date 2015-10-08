@@ -30,7 +30,7 @@ var task = function (gulp, config) {
     bundler.add(templateCache);
 
     bundle = function (ids) {
-        var bundleName = _.last(app[0].split('/'));
+        var bundleName = config.dist.bundleName || _.last(app[0].split('/'));
         gutil.log('Bundling', ids instanceof Array ? ids : '');
 
         // Browseriy
