@@ -26,7 +26,7 @@ var config = {
     'root': src,
     'app': src+'/*app.js',
     'html': [src+'/index.html'],
-    'views': [src+'/*/**/*.html'],
+    'views': [src+'/*/**/*(!index).html'],
     'js': [src+'/**/*.js'],
     'jsNoTests': [src+'/**/*!(Spec).js'],
     'css': [src+'/**/*.css'],
