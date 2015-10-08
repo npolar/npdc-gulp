@@ -26,7 +26,7 @@ var config = {
     'root': src,
     'app': src+'/*app.js',
     'html': [src+'/index.html'],
-    'views': [src+'/*/**/*(!index).html'],
+    'views': [src+'/*/**/!(index)*.html'],
     'js': [src+'/**/*.js'],
     'jsNoTests': [src+'/**/*!(Spec).js'],
     'css': [src+'/**/*.css'],
@@ -37,7 +37,7 @@ var config = {
   'deps': {
     'root': deps,
     'css': [deps+'/npdc-common/dist/assets/**/*.css'],
-    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/ui/**/*.html'],
+    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/**/!(index)*.html'],
     'assets': [deps+'/npdc-common/dist/assets/**/*']
   },
 
