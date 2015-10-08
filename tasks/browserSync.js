@@ -23,7 +23,8 @@ var task = function(gulp, config) {
           } else {
             next();
           }
-        }
+        },
+        directory: config.dirListings || false
       },
       // Watch for updates in dist
       files: [config.dist.root+'/**/*'],
