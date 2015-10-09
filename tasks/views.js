@@ -10,7 +10,7 @@ var task = function(gulp, config) {
     // TODO: Let angular-npolar handle this internally ?
     return gulp.src(config.deps.views, { base: path.join(process.cwd(), config.deps.root, '/') })
       .pipe(addsrc(config.src.views))
-      .pipe(templateCache({ moduleSystem: 'Browserify', standalone: true}))
+      .pipe(templateCache({ moduleSystem: 'Browserify', standalone: true, root: config.templateRoot }))
       .pipe(gulp.dest('/tmp/npdc-gulp/'+config.name));
   });
 };
