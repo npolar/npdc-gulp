@@ -2,13 +2,13 @@ var task = function(gulp, config) {
   'use strict';
 
   var mocha = require('gulp-mocha');
-  var notify = require('gulp-notify');
+  var errorHandler = require('../util/errorHandler')({plugin: 'mocha', verbose: false});
   var istanbul = require('gulp-istanbul');
 
   gulp.task('pre-test', function() {
     return gulp.src(config.src.jsNoTests)
       // Covering files
-      .pipe(istanbul({includeUntested: true}))
+      .pipe(istanbul({includeUntested: true}).on('error', errorHandler))
       // Force `require` to return covered files
       .pipe(istanbul.hookRequire());
   });
@@ -24,13 +24,7 @@ var task = function(gulp, config) {
       .pipe(istanbul.writeReports({
         reporters: ['text-summary', 'lcov']
       }))
-      .on('error', function (error) {
-        notify({
-          message: '<%= error.message %>',
-          title: 'Gulp mocha'
-        }).write(error);
-        this.emit('end');
-      });
+      .on('error', errorHandler);
   });
 };
 

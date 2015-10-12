@@ -11,7 +11,7 @@ var task = function (gulp, config) {
     var uglify = require('gulp-uglify');
     var glob = require('glob');
     var _ = require('lodash');
-    var notify = require('gulp-notify');
+    var errorHandler = require('../util/errorHandler')({plugin: 'browserify', verbose: true});
 
     var app = glob.sync('./' + config.src.app);
     var bundle;
@@ -36,7 +36,7 @@ var task = function (gulp, config) {
         // Browseriy
         return bundler.bundle()
           // log errors if they happen
-          .on('error', notify.onError({message: '<%= error %>', title: 'Gulp browserify'}))
+          .on('error', errorHandler)
           .pipe(source(bundleName))
           .pipe(buffer())
           .pipe(sourcemaps.init({loadMaps: true}))
