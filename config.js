@@ -36,7 +36,7 @@ var config = {
 
   'deps': {
     'root': deps,
-    'css': [deps+'/npdc-common/dist/assets/**/*.css'],
+    'css': [],
     'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/**/!(index)*.html'],
     'assets': [deps+'/npdc-common/dist/assets/**/*']
   },
