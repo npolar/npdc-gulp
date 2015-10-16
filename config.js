@@ -26,8 +26,9 @@ var config = {
     'root': src,
     'app': src+'/*app.js',
     'html': [src+'/index.html'],
-    'views': [src+'/*/**/*.html'],
+    'views': [src+'/*/**/!(index)*.html'],
     'js': [src+'/**/*.js'],
+    'jsNoTests': [src+'/**/*!(Spec).js'],
     'css': [src+'/**/*.css'],
     'img': [src+'/**/*.{ico,png,jpg,jpeg,gif}'],
     'config': [src+'/**/*.json']
@@ -36,7 +37,7 @@ var config = {
   'deps': {
     'root': deps,
     'css': [],
-    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/ui/**/*.html'],
+    'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/**/!(index)*.html'],
     'assets': [deps+'/npdc-common/dist/assets/**/*']
   },
 
