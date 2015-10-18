@@ -20,7 +20,7 @@ var task = function(gulp, config) {
       // gulp-mocha needs filepaths so you can't have any plugins before it
       .pipe(mocha({
         reporter: 'dot'
-      }))
+      }).on('error', errorHandler))
       .pipe(istanbul.writeReports({
         reporters: ['text-summary', 'lcov']
       }))
