@@ -1,21 +1,21 @@
 var task = function(gulp, config) {
   'use strict';
-
   var mocha = require('gulp-mocha');
   var errorHandler = require('../util/errorHandler')({plugin: 'mocha', verbose: false});
-  var istanbul = require('gulp-istanbul');
-  var debug = require('gulp-debug');
+  
+  // @FIXME istanbul messes up line number reporting in tests. So disabeling for now
+  // var istanbul = require('gulp-istanbul');
 
-  gulp.task('pre-test', function() {
-    return gulp.src(config.src.jsNoTests)
-      .pipe(debug())
-      // Covering files
-      .pipe(istanbul({includeUntested: true}).on('error', errorHandler))
-      // Force `require` to return covered files
-      .pipe(istanbul.hookRequire());
-  });
+  // gulp.task('pre-test', function() {
+  //   return gulp.src(config.src.jsNoTests)
+  //     // Covering files
+  //     .pipe(istanbul({includeUntested: true}).on('error', errorHandler))
+  //     // Force `require` to return covered files
+  //     .pipe(istanbul.hookRequire());
+  // });
 
-  gulp.task('test', ['pre-test'], function() {
+  gulp.task('test', [//'pre-test'
+    ], function() {
     return gulp.src(config.tests, {
         read: false
       })
@@ -24,7 +24,7 @@ var task = function(gulp, config) {
         reporter: 'dot'
       }).on('error', errorHandler))
       // .pipe(istanbul.writeReports({
-      //   reporters: ['text-summary', 'lcov']
+      //    reporters: ['text-summary', 'lcov']
       // }))
       .on('error', errorHandler);
   });
