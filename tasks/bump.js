@@ -1,6 +1,5 @@
 var task = function(gulp, config) {
   'use strict';
-
   var git = require('gulp-git');
   var bump = require('gulp-bump');
   var gutil = require('gulp-util');

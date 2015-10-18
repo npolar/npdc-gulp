@@ -1,11 +1,11 @@
 var task = function(gulp, config) {
   'use strict';
 
-  var gutil = require('gulp-util');
-  var fs = require('fs');
-  var path = require('path');
-
   gulp.task('info', function (cb) {
+    var gutil = require('gulp-util');
+    var fs = require('fs');
+    var path = require('path');
+
     // Watch assets if 'npm link'ed
     fs.readdirSync(config.deps.root).forEach(function (file) {
       var stats = fs.lstatSync(path.join(config.deps.root, file));

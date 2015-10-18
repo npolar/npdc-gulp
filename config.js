@@ -28,7 +28,7 @@ var config = {
     'html': [src+'/index.html'],
     'views': [src+'/*/**/!(index)*.html'],
     'js': [src+'/**/*.js'],
-    'jsNoTests': [src+'/**/*!(Spec).js'],
+    'jsNoTests': [src+'/**/!(*Spec).js'],
     'css': [src+'/**/*.css'],
     'img': [src+'/**/*.{ico,png,jpg,jpeg,gif}'],
     'config': [src+'/**/*.json']

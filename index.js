@@ -24,8 +24,10 @@ var loadAppTasks = function(gulpInstance, options) {
 
 var loadModuleTasks = function(gulpInstance, options) {
   loadTasks(gulpInstance, options);
-  gulpInstance.task('default', ['lint', 'test']);
-  gulpInstance.watch([].concat(baseConfig.src.js, baseConfig.tests), ['lint', 'test']);
+  gulpInstance.task('watch', function () {
+    return gulpInstance.watch([].concat(baseConfig.src.js, baseConfig.tests), ['lint', 'test']);
+  });
+  gulpInstance.task('default', ['lint', 'test', 'watch']);
 };
 
 module.exports = {

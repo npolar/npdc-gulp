@@ -1,12 +1,11 @@
 var task = function(gulp, config) {
   'use strict';
-
-  var path = require('path');
-  var fs = require('fs');
-  var browserSync = require('browser-sync').create();
-  var html5Regex = new RegExp('\/'+config.name+'\/(.*)$');
-
   gulp.task('browserSync', function() {
+    
+    var path = require('path');
+    var fs = require('fs');
+    var browserSync = require('browser-sync').create();
+    var html5Regex = new RegExp('\/'+config.name+'\/(.*)$');
 
     browserSync.init({
       server: {
