@@ -14,6 +14,7 @@ var task = function (gulp, config) {
       var glob = require('glob');
       var _ = require('lodash');
       var errorHandler = require('../util/errorHandler')({plugin: 'browserify', verbose: true});
+      var resolutions = require('browserify-resolutions');
 
       var app = glob.sync('./' + config.src.app);
       var bundle;
@@ -23,7 +24,7 @@ var task = function (gulp, config) {
           entries: [require.resolve('babelify/polyfill'), app],
           // Enable source maps
           debug: true
-      }, watchify.args);
+      }, watchify.args).plugin(resolutions, ['angular']);
 
       bundler.on('log', gutil.log);
 
