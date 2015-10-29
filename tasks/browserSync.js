@@ -1,7 +1,7 @@
 var task = function(gulp, config) {
   'use strict';
   gulp.task('browserSync', function() {
-    
+
     var path = require('path');
     var fs = require('fs');
     var browserSync = require('browser-sync').create();
@@ -18,15 +18,15 @@ var task = function(gulp, config) {
           // Rewrite html5 urls
           var matches = html5Regex.exec(req.url);
           //console.log('req', req.url);
-          var file = path.join(config.dist.root, req.url);
+          var file = path.join(config.dist.root, req.url.split('?')[0]);
           //console.log('file', file);
           if (req.method === 'GET' && matches && !fs.existsSync(file)) {
-            //console.log('no file -> hashbang!');
+            console.log('no file -> hashbang!', file);
             location = '/'+config.name+'/#!'+matches[1];
             res.writeHead(302, {'Location': location});
             res.end();
           } else {
-            //console.log('serve file');
+            console.log('serve file', file);
             next();
           }
         },
