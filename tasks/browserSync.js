@@ -5,7 +5,7 @@ var task = function(gulp, config) {
     var path = require('path');
     var fs = require('fs');
     var browserSync = require('browser-sync').create();
-    var html5Regex = new RegExp('\/'+config.name+'\/(.*)$');
+    var html5Regex = new RegExp('\/(.*?)\/(.*)$');
 
     browserSync.init({
       server: {
@@ -19,14 +19,14 @@ var task = function(gulp, config) {
           var matches = html5Regex.exec(req.url);
           //console.log('req', req.url);
           var file = path.join(config.dist.root, req.url.split('?')[0]);
-          //console.log('file', file);
+          //console.log('file', file, matches, !fs.existsSync(file));
           if (req.method === 'GET' && matches && !fs.existsSync(file)) {
-            console.log('no file -> hashbang!', file);
-            location = '/'+config.name+'/#!'+matches[1];
+            //console.log('no file -> hashbang!', file);
+            location = '/'+matches[1]+'/#!'+matches[2];
             res.writeHead(302, {'Location': location});
             res.end();
           } else {
-            console.log('serve file', file);
+            //console.log('serve file', file);
             next();
           }
         },
