@@ -18,7 +18,7 @@ var task = function(gulp, config) {
           var matches = html5Regex.exec(req.url);
           //console.log('req', req.url);
           var file = path.join(config.dist.root, req.url.split('?')[0]);
-          console.log('file', file, matches, !fs.existsSync(file));
+          //console.log('file', file, matches, !fs.existsSync(file));
           if (req.method === 'GET' && matches && !fs.existsSync(file)) {
             //console.log('no file -> hashbang!', file);
             location = '/'+matches[1]+'/#!'+matches[2];
