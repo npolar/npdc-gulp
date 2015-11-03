@@ -9,8 +9,7 @@ var task = function(gulp, config) {
 
     browserSync.init({
       server: {
-        // Serve both project root and dist to enable sourcemaps
-        baseDir: [process.cwd(), config.dist.root],
+        baseDir: [config.dist.root],
         middleware: function (req, res, next) {
           var location;
           // Enable CORS
