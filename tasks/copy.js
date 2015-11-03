@@ -2,13 +2,14 @@ var task = function(gulp, config) {
   'use strict';
 
   var gulpif = require('gulp-if');
-  var cachebust = require('gulp-cache-bust');
+  //var cachebust = require('gulp-cache-bust');
   var changed = require('gulp-changed');
   var minifyCss = require('gulp-minify-css');
   var preprocess = require('gulp-preprocess');
   var concat = require('gulp-concat');
   var git = require('gulp-git');
   var rename = require('gulp-rename');
+  var errorHandler = require('../util/errorHandler')({plugin: 'copy', verbose: true});
 
   gulp.task('copy-html', function() {
     return gulp.src(config.src.html)
@@ -18,8 +19,9 @@ var task = function(gulp, config) {
           VERSION: config.version()
         }
       }))
-      .pipe(gulpif(global.isProd, cachebust()))
-      .pipe(gulp.dest(config.dist.approot));
+      //.pipe(gulpif(global.isProd, cachebust()).on('error', errorHandler))
+      .pipe(gulp.dest(config.dist.approot))
+      .on('error', errorHandler);
   });
 
   gulp.task('copy-css', function(cb) {
@@ -32,7 +34,8 @@ var task = function(gulp, config) {
         .pipe(gulpif(global.isProd, minifyCss()))
         .pipe(gulp.dest(config.dist.approot))
         .pipe(rename(config.pkgname + '-' + ref + '-latest.css'))
-        .pipe(gulp.dest(config.dist.approot));
+        .pipe(gulp.dest(config.dist.approot))
+        .on('error', errorHandler);
         cb();
     });
 
