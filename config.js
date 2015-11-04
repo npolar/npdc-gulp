@@ -41,7 +41,9 @@ var config = {
     'assets': [deps+'/npdc-common/dist/assets/**/*']
   },
 
-  'tests': ['src/**/*Spec.js']
+  'tests': ['src/**/*Spec.js'],
+  'dirListings': false,
+  'appCache': false
 };
 
 module.exports = config;

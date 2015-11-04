@@ -7,7 +7,8 @@ var task = function (gulp, config) {
     gulp.src([config.dist.root + '/**/*'])
       .pipe(manifest({
         hash: true,
-        preferOnline: true,
+        prefix: '/',
+        preferOnline: !global.isProd, // Prefer online in devmode
         network: ['*'],
         filename: 'app.manifest',
         exclude: '**/app.manifest'

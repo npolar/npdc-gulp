@@ -6,6 +6,8 @@ var task = function(gulp, config) {
     var fs = require('fs');
     var browserSync = require('browser-sync').create();
     var html5Regex = new RegExp('\/(.*?)\/(.*)$');
+    var runSequence = require('run-sequence').use(gulp);
+
 
     browserSync.init({
       server: {
@@ -24,6 +26,8 @@ var task = function(gulp, config) {
             location = '/'+matches[1]+'/#!'+matches[2];
             res.writeHead(302, {'Location': location});
             res.end();
+          } else if (/app\.manifest/.test(file) && !config.appCache) {
+            res.end();
           } else {
             //console.log('serve file', file);
             next();
@@ -32,10 +36,19 @@ var task = function(gulp, config) {
         directory: config.dirListings || false
       },
       // Watch for updates in dist
-      files: [config.dist.root+'/**/*'],
+      files: [config.dist.root+'/**/*',
+      {
+        match: config.dist.root+'/**/!(*manifest)',
+        fn: function (ev, file) {
+          if (ev === 'change' && config.appCache) {
+            runSequence('manifest');
+          }
+        }
+      }],
       // Disable input mirroring between connected browsers
       ghostMode: false,
-      open: false
+      open: false,
+      notify: false,
     });
 
   });
