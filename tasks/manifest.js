@@ -4,7 +4,7 @@ var task = function (gulp, config) {
   var manifest = require('gulp-manifest');
 
   gulp.task('manifest', function(){
-    gulp.src([config.dist.root + '/**/*'])
+    return gulp.src([config.dist.root + '/**/*'])
       .pipe(manifest({
         hash: true,
         prefix: '/',
