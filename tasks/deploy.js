@@ -15,7 +15,7 @@ var task = function(gulp, config) {
         gutil.log(err);
         cb(err);
       } else {
-        gutil.log('Deploy successfull.');
+        gutil.log('Deploy successful.');
         cb();
       }});
   });
@@ -42,7 +42,7 @@ var task = function(gulp, config) {
               gutil.log(err);
               cb(err);
             } else {
-              gutil.log('Deploy successfull.');
+              gutil.log('Deploy successful.');
               cb();
             }});
         } else {
@@ -54,3 +54,4 @@ var task = function(gulp, config) {
 };
 
 module.exports = task;
+
