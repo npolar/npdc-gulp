@@ -42,18 +42,24 @@ var task = function(gulp, config) {
   });
 
   gulp.task('copy-static', function() {
-    return gulp.src([].concat(config.src.config, config.src.img))
+    return gulp.src([].concat(config.src.static))
       .pipe(changed(config.dist.approot))
       .pipe(gulp.dest(config.dist.approot));
   });
 
   gulp.task('copy-deps-assets', function() {
     return gulp.src(config.deps.assets)
+      .pipe(changed(config.dist.approot + '/assets'))
+      .pipe(gulp.dest(config.dist.approot + '/assets'));
+  });
+
+  gulp.task('copy-deps-shared-assets', function() {
+    return gulp.src(config.deps.sharedAssets)
       .pipe(changed(config.dist.assets))
       .pipe(gulp.dest(config.dist.assets));
   });
 
-  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static', 'copy-deps-assets']);
+  gulp.task('copy-all', ['copy-html', 'copy-css', 'copy-static', 'copy-deps-assets', 'copy-deps-shared-assets']);
 };
 
 module.exports = task;

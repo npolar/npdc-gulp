@@ -14,7 +14,7 @@ var task = function(gulp, config) {
   });
 
   gulp.task('watch-static', function() {
-    return gulp.watch([].concat(config.src.config, config.src.img), ['copy-static']);
+    return gulp.watch([].concat(config.src.static), ['copy-static']);
   });
 
   gulp.task('watch-views', function() {

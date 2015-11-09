@@ -30,15 +30,15 @@ var config = {
     'js': [src+'/**/*.js'],
     'jsNoTests': [src+'/**/!(*Spec).js'],
     'css': [src+'/**/*.css'],
-    'img': [src+'/**/*.{ico,png,jpg,jpeg,gif}'],
-    'config': [src+'/**/*.json']
+    'static': [src+'/**/*.{ico,png,jpg,jpeg,gif}', src+'/**/*.json'],
   },
 
   'deps': {
     'root': deps,
     'css': [],
     'views': [deps+'/angular-npolar/src/ui/**/*.html', deps+'/npdc-common/src/**/!(index)*.html'],
-    'assets': [deps+'/npdc-common/dist/assets/**/*']
+    'assets': [],
+    'sharedAssets': [deps+'/npdc-common/dist/assets/**/*']
   },
 
   'tests': ['src/**/*Spec.js'],
