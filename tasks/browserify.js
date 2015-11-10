@@ -49,7 +49,7 @@ var task = function (gulp, config) {
       };
 
       // Watch for changes and rebuild
-      if (!global.isProd) {
+      if (!global.isProd && !global.isCIBuild) {
           bundler = watchify(bundler);
           bundler.on('update', function (ids) {
               // Ignore package.json updates
