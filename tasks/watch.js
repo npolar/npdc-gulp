@@ -9,12 +9,8 @@ var task = function(gulp, config) {
     return gulp.watch(config.src.html, ['copy-html']);
   });
 
-  gulp.task('watch-css', function() {
-    return gulp.watch([].concat(config.src.css), ['copy-css']);
-  });
-
-  gulp.task('watch-static', function() {
-    return gulp.watch([].concat(config.src.static), ['copy-static']);
+  gulp.task('watch-assets', function() {
+    return gulp.watch(config.src.assets, ['copy-assets']);
   });
 
   gulp.task('watch-views', function() {
@@ -25,13 +21,17 @@ var task = function(gulp, config) {
     return gulp.watch([].concat(config.src.js, config.tests), ['lint', 'test']);
   });
 
+  gulp.task('watch-sass', function () {
+    return gulp.watch(config.src.sassAll, ['sass']);
+  });
+
   gulp.task('watch-deps', function(cb) {
     fs.readdirSync(config.deps.root).forEach(function(file) {
       var stats = fs.lstatSync(path.join(config.deps.root, file));
       if (stats.isSymbolicLink()) {
         config.deps.assets.forEach(function(glob) {
           if (glob.indexOf(file) > -1) {
-            gulp.watch(glob, ['copy-css', 'copy-deps-assets']);
+            gulp.watch(glob, ['copy-deps-assets']);
           }
         });
         config.deps.sharedAssets.forEach(function(glob) {
@@ -50,7 +50,7 @@ var task = function(gulp, config) {
     cb();
   });
 
-  gulp.task('watch-all', ['watch-html', 'watch-css', 'watch-static', 'watch-views', 'watch-test', 'watch-deps']);
+  gulp.task('watch-all', ['watch-html', 'watch-sass', 'watch-assets', 'watch-views', 'watch-test', 'watch-deps']);
 };
 
 module.exports = task;

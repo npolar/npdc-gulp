@@ -54,4 +54,3 @@ var task = function(gulp, config) {
 };
 
 module.exports = task;
-

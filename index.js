@@ -3,17 +3,13 @@
 var fs = require('fs');
 var onlyScripts = require('./util/scriptFilter');
 var path = require('path');
-var _ = require('lodash');
-var deepExtend = require('underscore-deep-extend');
 var tasks = fs.readdirSync(path.resolve(__dirname, './tasks/')).filter(onlyScripts);
 var baseConfig = require('./config');
 
-_.mixin({deepExtend: deepExtend(_)});
-
 var loadTasks = function(gulpInstance, options) {
-  var config = _.deepExtend(baseConfig, options);
+  baseConfig = baseConfig.extend(options);
   tasks.forEach(function(task) {
-    require('./tasks/' + task)(gulpInstance, config);
+    require('./tasks/' + task)(gulpInstance, baseConfig);
   });
 };
 

@@ -12,7 +12,7 @@ var task = function(gulp, config) {
         process.exit(0);
       });
     });
-    runSequence(['clean', 'info'], 'lint', 'test', ['browserify', 'copy-all'], 'manifest', cb);
+    runSequence(['clean', 'info'], 'lint', 'test', ['sass', 'browserify', 'copy-all'], 'manifest', cb);
   });
 };
 

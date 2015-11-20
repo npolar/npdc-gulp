@@ -32,6 +32,10 @@ var task = function (gulp, config) {
       gutil.log("templateCache", templateCache);
       bundler.add(templateCache);
 
+      if (global.isProd) {
+        bundler.external(['npdc-common', 'angular', 'formula']);
+      }
+
       bundle = function (ids) {
           var bundleName = config.dist.bundleName || _.last(app[0].split('/'));
           gutil.log('Bundling', ids instanceof Array ? ids : '');
@@ -49,7 +53,7 @@ var task = function (gulp, config) {
       };
 
       // Watch for changes and rebuild
-      if (!global.isProd && !global.isCIBuild) {
+      if (!global.isProd) {
           bundler = watchify(bundler);
           bundler.on('update', function (ids) {
               // Ignore package.json updates
