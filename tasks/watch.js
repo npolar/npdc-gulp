@@ -36,7 +36,7 @@ var task = function(gulp, config) {
         });
         config.deps.sharedAssets.forEach(function(glob) {
           if (glob.indexOf(file) > -1) {
-            gulp.watch(glob, ['copy-deps-shared-assets']);
+            gulp.watch(glob, ['copy-shared-assets']);
           }
         });
         config.deps.views.forEach(function(glob) {

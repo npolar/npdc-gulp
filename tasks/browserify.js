@@ -33,7 +33,7 @@ var task = function (gulp, config) {
       bundler.add(templateCache);
 
       if (global.isProd) {
-        bundler.external(['npdc-common', 'angular', 'formula']);
+        bundler.external(['npdc-common', 'angular']);
       }
 
       bundle = function (ids) {
