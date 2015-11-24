@@ -5,12 +5,13 @@ var task = function(gulp, config) {
   var runSequence = require('run-sequence').use(gulp);
   var changed = require('gulp-changed');
   var taskPrefix = 'common-'; // To not overwrite tasks.
+
   var getConfig = function () {
     var baseConfig = JSON.parse(JSON.stringify(config));
     baseConfig.src.root = './node_modules/npdc-common/src';
     baseConfig.dist.root = './node_modules/npdc-common/dist';
     baseConfig.pkg = {};
-    var commonConfig = require.main.require('npdc-common/config')(baseConfig);
+    var commonConfig = require(process.cwd() + '/node_modules/npdc-common/config.js')(baseConfig);
     return _.deepExtend(baseConfig, commonConfig);
   };
 
