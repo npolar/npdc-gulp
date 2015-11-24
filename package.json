@@ -16,6 +16,7 @@
     "browserify-ngannotate": "^1.0.1",
     "browserify-resolutions": "^1.0.6",
     "del": "^2.0.2",
+    "event-stream": "^3.3.2",
     "glob": "^5.0.14",
     "gulp": "^3.9.0",
     "gulp-add-src": "^0.2.0",
