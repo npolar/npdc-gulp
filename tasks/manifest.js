@@ -11,7 +11,7 @@ var task = function (gulp, config) {
         preferOnline: !global.isProd, // Prefer online in devmode
         network: ['*'],
         filename: 'app.manifest',
-        exclude: '**/app.manifest'
+        exclude: ['**/app.manifest', 'assets/**/*']
        }))
       .pipe(gulp.dest(config.dist.approot));
   });
