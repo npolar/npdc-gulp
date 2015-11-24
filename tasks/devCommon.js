@@ -25,7 +25,6 @@ var task = function(gulp, config) {
   gulp.task('devCommon', function (cb) {
     var commonConfig = getConfig();
     require('./sass')(gulp, commonConfig, taskPrefix);
-    require('./copyAssets')(gulp, commonConfig, taskPrefix);
     require('./copyDepsAssets')(gulp, commonConfig, taskPrefix);
     require('./copySharedAssets')(gulp, commonConfig, taskPrefix);
     runSequence(taskPrefix+'sass', taskPrefix+'copy-assets',
