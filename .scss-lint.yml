@@ -13,3 +13,7 @@ linters:
     enabled: false
   SpaceAfterComma:
     enabled: false
+  ColorVariable:
+    enabled: false
+  IdSelector:
+    enabled: false
