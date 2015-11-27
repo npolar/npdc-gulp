@@ -8,7 +8,7 @@ var task = function(gulp, config) {
       args: '--abbrev-ref HEAD',
       quiet: true
     }, function(err, ref) {
-      global.ref = ref;
+      global.ref = !ref || err ? 'master' : ref;
       cb();
     });
   });
