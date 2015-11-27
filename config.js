@@ -40,8 +40,8 @@ var config = {
     'js': [src + '/**/*.js'],
     'jsNoTests': [src + '/**/!(*Spec).js'],
     'css': [src + '/**/*.css'],
-    'sassMain': [src.root + '/main.scss'],
-    'sassAll': [src.root + '/**/*.scss'],
+    'sassMain': [src + '/main.scss'],
+    'sassAll': [src + '/**/*.scss'],
     'assets': [src + '/**/*.{ico,png,jpg,jpeg,gif}', src + '/**/*.json'],
   },
 

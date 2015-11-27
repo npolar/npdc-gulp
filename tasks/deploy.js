@@ -5,11 +5,11 @@ var task = function(gulp, config) {
   var gutil = require('gulp-util');
   var inquirer = require('inquirer');
 
-  gulp.task('deploy-test', function(cb) {
+  gulp.task('deploy-test', ['prod'], function(cb) {
     scp.send({
-      file: config.dist.root+'/*',
+      file: config.dist.approot,
       host: 'apptest.data.npolar.no',
-      path: '/srv/data.npolar.no'
+      path: '/srv/data.npolar.no/' + config.appName
     }, function (err) {
       if (err) {
         gutil.log(err);
@@ -20,7 +20,7 @@ var task = function(gulp, config) {
       }});
   });
 
-  gulp.task('deploy-prod', function(cb) {
+  gulp.task('deploy-prod', ['prod'], function(cb) {
     // Work around for hanging process. All tasks finish but gulp don't.
     gulp.on('stop', function() {
       process.nextTick(function() {
@@ -34,9 +34,9 @@ var task = function(gulp, config) {
       default: false}], function (answer) {
         if (answer.ok) {
           scp.send({
-            file: config.dist.root+'/*',
+            file: config.dist.approot,
             host: 'app2.data.npolar.no',
-            path: '/srv/data.npolar.no'
+            path: '/srv/data.npolar.no/' + config.appName
           }, function (err) {
             if (err) {
               gutil.log(err);
