@@ -7,7 +7,7 @@ var task = function(gulp, config) {
 
   gulp.task('deploy-test', ['prod'], function(cb) {
     scp.send({
-      file: config.dist.root + '/' + config.name,
+      file: config.dist.root + '/' + config.name + '/*',
       host: 'apptest.data.npolar.no',
       path: '/srv/data.npolar.no/' + config.name
     }, function (err) {
@@ -34,7 +34,7 @@ var task = function(gulp, config) {
       default: false}], function (answer) {
         if (answer.ok) {
           scp.send({
-            file: config.dist.root + '/' + config.name,
+            file: config.dist.root + '/' + config.name + '/*',
             host: 'app2.data.npolar.no',
             path: '/srv/data.npolar.no/' + config.name
           }, function (err) {
