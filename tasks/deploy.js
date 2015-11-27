@@ -9,7 +9,7 @@ var task = function(gulp, config) {
     scp.send({
       file: config.dist.approot,
       host: 'apptest.data.npolar.no',
-      path: '/srv/data.npolar.no/' + config.appName
+      path: '/srv/data.npolar.no/' + config.name
     }, function (err) {
       if (err) {
         gutil.log(err);
@@ -36,7 +36,7 @@ var task = function(gulp, config) {
           scp.send({
             file: config.dist.approot,
             host: 'app2.data.npolar.no',
-            path: '/srv/data.npolar.no/' + config.appName
+            path: '/srv/data.npolar.no/' + config.name
           }, function (err) {
             if (err) {
               gutil.log(err);
