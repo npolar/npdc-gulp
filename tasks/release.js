@@ -4,7 +4,7 @@ var task = function(gulp, config) {
   var runSequence = require('run-sequence').use(gulp);
 
   gulp.task('release', function (cb) {
-    runSequence('bump', 'prod', 'tag', 'deploy-prod', cb);
+    runSequence('bump', 'deploy-prod', 'tag', cb);
   });
 
 };
