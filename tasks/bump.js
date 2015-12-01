@@ -11,7 +11,7 @@ var task = function(gulp, config) {
     inquirer.prompt([{
       type: 'list',
       name: 'change',
-      message: 'Is this a patch, minor or major change?',
+      message: 'Bumping from ' + config.version() + '. Is this a patch, minor or major change?',
       choices: ['patch', 'minor', 'major'],
       default: 0
     }], function (answer) {
@@ -31,7 +31,12 @@ var task = function(gulp, config) {
   });
 
   gulp.task('push-changes', function (cb) {
-    git.push('origin', 'master', cb);
+    git.push('origin', 'master', function (err) {
+      if (err) {
+        throw err;
+      }
+      cb();
+    });
   });
 
   gulp.task('bump', function (cb) {

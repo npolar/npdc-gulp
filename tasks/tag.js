@@ -24,7 +24,7 @@ var task = function(gulp, config) {
   var analyzeDependencies = function (pkg) {
     var ok = true;
     _.each(pkg.dependencies, function (dep, key) {
-      if(/^git.*npolar.*\.git$/.test(dep)) {
+      if(/[^\d]$/.test(dep)) {
         gutil.log('[WARN] About to tag with snapshot version of '+ key +'. You might want to lock to a specific version!');
         ok = false;
       }
