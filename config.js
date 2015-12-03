@@ -37,7 +37,7 @@ var config = {
     'app': src + '/*app.js',
     'html': [src + '/index.html'],
     'views': [src + '/*/**/!(index)*.html'],
-    'js': [src + '/**/*.js'],
+    'js': [src + '/**/*.{js,json}'],
     'jsNoTests': [src + '/**/!(*Spec).js'],
     'css': [src + '/**/*.css'],
     'sassMain': [src + '/main.scss'],
