@@ -11,6 +11,7 @@ var task = function (gulp, config) {
         preferOnline: !global.isProd, // Prefer online in devmode
         network: ['*'],
         filename: 'app.manifest',
+        include: ['http://browser-update.org/update.min.js', 'https://browser-update.org/update.min.js'],
         exclude: ['**/app.manifest', 'assets/**/*']
        }))
       .pipe(gulp.dest(config.dist.approot));
