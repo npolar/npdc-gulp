@@ -23,7 +23,7 @@ var task = function(gulp, config, prefix) {
 
     return es.concat(cssFiles, compiledFiles)
       .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(concat(config.pkgname + '-' + config.version() + '.css'))
+      .pipe(concat(config.pkgname + '-' + config.version().split('.')[0] + '.css'))
       .pipe(gulpif(global.isProd, minifyCss()))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest(config.dist.sass)).pipe(rename(config.pkgname + '-' + global.ref + '-latest.css'))
