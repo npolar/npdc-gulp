@@ -1,6 +1,6 @@
 {
   "name": "npdc-gulp",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Gulp tasks for npdc apps",
   "main": "index.js",
   "scripts": {
