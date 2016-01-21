@@ -21,7 +21,7 @@ var task = function (gulp, config) {
 
       var bundler = browserify({
           // Our app main
-          entries: [require.resolve('babelify/polyfill'), app],
+          entries: [require.resolve('babel-polyfill'), app],
           // Enable source maps
           debug: true
       }, watchify.args).plugin(resolutions, ['angular']);

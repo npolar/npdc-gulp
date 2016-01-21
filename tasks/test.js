@@ -1,7 +1,8 @@
 var task = function(gulp, config) {
   'use strict';
   var mocha = require('gulp-mocha');
-  var errorHandler = require('../util/errorHandler')({plugin: 'mocha', verbose: false});
+  require('babel-register');
+  var errorHandler = require('../util/errorHandler')({plugin: 'mocha', verbose: true});
 
   // @FIXME istanbul messes up line number reporting in tests. So disabeling for now
   // var istanbul = require('gulp-istanbul');
@@ -21,7 +22,7 @@ var task = function(gulp, config) {
       })
       // gulp-mocha needs filepaths so you can't have any plugins before it
       .pipe(mocha({
-        reporter: 'dot'
+        reporter: 'dot',
       }))
       // .pipe(istanbul.writeReports({
       //    reporters: ['text-summary', 'lcov']
