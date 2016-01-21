@@ -1,7 +1,9 @@
 var task = function(gulp, config) {
   'use strict';
   var mocha = require('gulp-mocha');
-  require('babel-register');
+  require('babel-register')({
+    presets: 'es2015'
+  });
   var errorHandler = require('../util/errorHandler')({plugin: 'mocha', verbose: true});
 
   // @FIXME istanbul messes up line number reporting in tests. So disabeling for now
