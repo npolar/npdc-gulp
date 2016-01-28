@@ -27,7 +27,7 @@ var task = function(gulp, config, prefix) {
       .pipe(gulpif(global.isProd, minifyCss()))
       .pipe(sourcemaps.write())
       .pipe(gulp.dest(config.dist.sass)).pipe(rename(config.pkgname + '-' + global.ref + '-latest.css'))
-      .pipe(gulp.dest(config.dist.sass))
+      .pipe(gulp.dest(config.dist.sass)).pipe(rename(config.pkgname + '.css')).pipe(gulp.dest(config.dist.sass))
       .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp sass'}));
   });
 
