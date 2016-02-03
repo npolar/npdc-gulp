@@ -69,5 +69,6 @@
     "wsh"           : false,
     "yui"           : false,
 
-    "globals"       : {}
+    "globals"       : {},
+    "-W034"         : false
 }
