@@ -3,5 +3,6 @@ rules:
   class-name-format: 0
   force-pseudo-nesting: 0
   force-attribute-nesting: 0
+  force-element-nesting: 0
   no-qualifying-elements: 0
   no-vendor-prefixes: 0
