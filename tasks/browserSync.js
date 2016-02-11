@@ -36,15 +36,15 @@ var task = function(gulp, config) {
         directory: config.dirListings || false
       },
       // Watch for updates in dist
-      // files: [config.dist.root+'/**/*',
-      // {
-      //   match: config.dist.root+'/**/!(*manifest)',
-      //   fn: function (ev, file) {
-      //     if (ev === 'change' && config.appCache) {
-      //       runSequence('manifest');
-      //     }
-      //   }
-      // }],
+      files: [config.dist.root+'/**/*',
+      {
+        match: config.dist.root+'/**/!(*manifest)',
+        fn: function (ev, file) {
+          if (ev === 'change' && config.appCache) {
+            runSequence('manifest');
+          }
+        }
+      }],
       // Disable input mirroring between connected browsers
       ghostMode: false,
       open: false,
