@@ -12,7 +12,7 @@ var task = function (gulp, config) {
         network: ['*'],
         filename: 'app.manifest',
         include: ['http://browser-update.org/update.min.js', 'https://browser-update.org/update.min.js'],
-        exclude: ['**/app.manifest', 'assets/**/*']
+        exclude: ['**/app.manifest']
        }))
       .pipe(gulp.dest(config.dist.approot));
   });
