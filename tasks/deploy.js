@@ -35,7 +35,7 @@ var task = function(gulp, config) {
         if (answer.ok) {
           scp.send({
             file: config.dist.root + '/' + config.name + '/*',
-            host: 'app2.data.npolar.no',
+            host: 'app.data.npolar.no',
             path: '/srv/data.npolar.no/' + config.name
           }, function (err) {
             if (err) {
