@@ -13,6 +13,18 @@ var task = function(gulp, config, prefix) {
 
   prefix = prefix || '';
 
+  var fullVersion = function () {
+    return config.pkgname + '-' + config.version() + '.css';
+  };
+
+  var minorVersion = function () {
+    return config.pkgname + '-' + config.version().split('.').slice(0,2).join('.') + '.css';
+  };
+
+  var majorVersion = function () {
+    return config.pkgname + '-' + config.version().split('.')[0] + '.css';
+  };
+
   gulp.task(prefix + 'sass', ['revParse'], function () {
     var cssFiles = gulp.src([].concat(config.deps.css, config.src.css));
     var compiledFiles = gulp.src(config.src.sassMain)
@@ -23,11 +35,14 @@ var task = function(gulp, config, prefix) {
 
     return es.concat(cssFiles, compiledFiles)
       .pipe(sourcemaps.init({loadMaps: true}))
-      .pipe(concat(config.pkgname + '-' + config.version().split('.')[0] + '.css'))
+      .pipe(concat(fullVersion()))
       .pipe(gulpif(global.isProd, minifyCss()))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(config.dist.sass)).pipe(rename(config.pkgname + '-' + global.ref + '-latest.css'))
-      .pipe(gulp.dest(config.dist.sass)).pipe(rename(config.pkgname + '.css')).pipe(gulp.dest(config.dist.sass))
+      .pipe(gulp.dest(config.dist.sass))
+      .pipe(rename(config.pkgname + '-' + global.ref + '-latest.css')).pipe(gulp.dest(config.dist.sass))
+      .pipe(rename(config.pkgname + '.css')).pipe(gulp.dest(config.dist.sass))
+      .pipe(rename(minorVersion())).pipe(gulp.dest(config.dist.sass))
+      .pipe(rename(majorVersion())).pipe(gulp.dest(config.dist.sass))
       .on('error', notify.onError({message: '<%= error.message %>', title: 'Gulp sass'}));
   });
 
