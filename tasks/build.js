@@ -6,7 +6,7 @@ var task = function(gulp, config) {
   gulp.task('build', function(cb) {
     global.isProd = false;
     global.buildOnly = true;
-    runSequence(['clean', 'info'], 'devCommon', 'lint', 'test', 'browserify', cb);
+    runSequence(['clean', 'info'], 'devCommon', 'lint', 'test', 'browserify', 'copy-all', cb);
   });
 };
 
