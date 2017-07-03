@@ -8,7 +8,7 @@ var task = function(gulp, config) {
   gulp.task('deploy-test', ['prod'], function(cb) {
     scp.send({
       file: config.dist.root + '/' + config.name + '/*',
-      host: 'apptest.data.npolar.no',
+      host: 'app-test.data.npolar.no',
       path: '/srv/data.npolar.no/' + config.name
     }, function (err) {
       if (err) {
