@@ -52,18 +52,16 @@ var task = function (gulp, config) {
             .pipe(gulp.dest(config.dist.approot));
       };
 
-      if(!global.buildOnly) {
       // Watch for changes and rebuild
-          if (!global.isProd) {
-              bundler = watchify(bundler);
-              bundler.on('update', function (ids) {
-                  // Ignore package.json updates
-                  if (ids.length === 1 && /package\.json$/.test(ids[0])) {
-                      return;
-                  }
-                  return bundle(ids);
-              });
-          }
+      if (!global.isProd) {
+          bundler = watchify(bundler);
+          bundler.on('update', function (ids) {
+              // Ignore package.json updates
+              if (ids.length === 1 && /package\.json$/.test(ids[0])) {
+                  return;
+              }
+              return bundle(ids);
+          });
       }
 
       return bundle();
